@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>imgList</title>
+    <style>
+        .imgList {
+            text-align: center;
+        }
+
+        body {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <h3>非浮层放大：</h3>
+            <div style="margin-bottom: 10px;">
+                <a id="addOne" href="javascript:void(0);">新增一张</a>
+                <a id="addMulti" href="javascript:void(0);">新增多张</a>
+            </div>
+            <div id="imgList1" class="imgList"></div>
+        </li>
+        <li>
+            <h3>浮层放大：</h3>
+            <div id="imgList2" class="imgList"></div>
+        </li>
+    </ul>
+    <script src="http://s1.bdstatic.com/r/www/cache/ecom/esl/1-6-10/esl.js"></script>
+    <script src="../dep/tangram-1.5.2.2-min.js"></script>
+    <script>
+        require.config({
+            baseUrl: '../src',
+            paths: {
+                css: '../dep/css'
+            },
+            packages: [
+                {
+                    name: 'imgList',
+                    location: '.',
+                    main: 'main'
+                }
+            ]
+        });
+
+        function getDataList(num) {
+            var picList = [];
+            for (var i = 1; i <= num; i++) {
+                var j = i;
+                if (i > 15) {
+                    j = i % 15 + 1;
+                }
+                var pic = {
+                    normalPic: 'img/' + j + '.png',
+                    smallPic: 'img/' + j + '-s.png',
+                    title: '标题' + i,
+                    desc: '描述' + i
+                };
+                picList.push(pic);
+            };
+
+            return picList;
+        }
+
+        function getDupDataList(num) {
+            var picList = [];
+            for (var i = 1; i <= num; i++) {
+                var j = i;
+                if (i > 15) {
+                    j = i % 15 + 1;
+                }
+
+                if (j % 2 == 0) {
+                    j = j - 1;
+                }
+                var pic = {
+                    normalPic: 'img/' + j + '.png',
+                    smallPic: 'img/' + j + '-s.png',
+                    title: '标题' + i,
+                    desc: '描述' + i
+                };
+                picList.push(pic);
+            };
+
+            return picList;
+        }
+
+        require(
+            ['imgList', 'css!imgList/css/main.css'],
+            function (ImgList) {
+                var imgList1 = new ImgList({
+                    dataList: getDataList(45),
+                    target: 'imgList1',
+                    showTitle: true,
+                    showDesc: true,
+                    maxNum: 10
+                });
+
+                imgList1.render();
+
+                var i = 1;
+                T.on('addOne', 'click', function () {
+                    imgList1.add({
+                        normalPic: 'img/12.png',
+                        smallPic: 'img/12-s.png',
+                        title: '（新增单张）标题' + i,
+                        desc: '（新增单张）描述' + i++
+                    });
+                });
+
+                var j = 1;
+                T.on('addMulti', 'click', function () {
+                    imgList1.add([
+                        {
+                            normalPic: 'img/12.png',
+                            smallPic: 'img/12-s.png',
+                            title: '（新增多张）' + j,
+                            desc: '描述' + j++
+                        },
+                        {
+                            normalPic: 'img/14.png',
+                            smallPic: 'img/14-s.png',
+                            title: '（新增多张）' + j,
+                            desc: '描述' + j++
+                        }
+                    ]);
+                });
+
+                var imgList2 = new ImgList({
+                    dataList: getDataList(20),
+                    target: 'imgList2',
+                    readonly: true,
+                    showLayer: true,
+                    rotatable: true,
+                    showTitle: true,
+                    showDesc: true
+                });
+
+                imgList2.render();
+            }
+        );
+    </script>
+</body>
+</html>

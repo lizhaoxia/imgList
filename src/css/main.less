@@ -1,0 +1,210 @@
+@import 'pager.less';
+
+@list-prefix: ui-img-list;
+
+.@{list-prefix} {
+    &:after {
+        content: ".";
+        clear: both;
+        display: block;
+        height: 0;
+        line-height: 0;
+        visibility: hidden;
+        overflow: hidden;
+    }
+
+    zoom: 1;
+    list-style: none;
+
+    .@{list-prefix}-item {
+        float: left;
+        margin: 0 10px 10px 0;
+    }
+
+    .@{list-prefix}-link {
+        position: relative;
+        display: block;
+
+        img {
+            background: url(img/loading.gif) no-repeat center;
+            border: none;
+        }
+    }
+
+    .@{list-prefix}-title,
+    .@{list-prefix}-desc {
+        text-align: center;
+        line-height: 20px;
+        height: 22px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .@{list-prefix}-title {
+        font-weight: bold;
+    }
+
+    .@{list-prefix}-del {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        _font-size: 0; // ie6下最小高度问题
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: url(img/delete.png) -12px 0;
+
+        &.hover,
+        &:hover {
+            background-position: 0 0;
+        }
+    }
+}
+
+.@{list-prefix}-layer {
+    position: fixed;
+    _position: absolute;
+    _width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    text-align: center;
+    background: url(img/b-loading.gif) no-repeat center;
+
+    &.error {
+        background: url(img/error.png) no-repeat center;
+        _background: url(img/error.gif) no-repeat center;
+    }
+
+    .@{list-prefix}-layer-wrapper {
+        margin: 0 auto;
+        position: relative;
+
+        img {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
+
+    .@{list-prefix}-layer-close,
+    .@{list-prefix}-layer-rotate-left,
+    .@{list-prefix}-layer-rotate-right {
+        display: inline-block;
+        position: absolute;
+        background: url(img/scan.png) no-repeat;
+        _background:url(img/scan-ie6.png) no-repeat;
+    }
+
+    .@{list-prefix}-layer-close {
+        width: 40px;
+        height: 40px;
+        background-position: -43px -52px;
+        right: -17px;
+        top: -17px;
+        z-index: 110;
+
+        &:hover {
+            background-position: -2px -52px;
+        }
+    }
+
+    .@{list-prefix}-layer-rotate-left,
+    .@{list-prefix}-layer-rotate-right {
+        width: 27px;
+        height: 22px;
+        bottom: -30px;
+    }
+
+    .@{list-prefix}-layer-rotate-left {
+        background-position: 0 -94px;
+
+        &:hover {
+            background-position: -28px -94px;
+        }
+    }
+
+    .@{list-prefix}-layer-rotate-right {
+        background-position: -56px -94px;
+
+        &:hover {
+            background-position: -84px -94px;
+        }
+    }
+
+    .@{list-prefix}-layer-last,
+    .@{list-prefix}-layer-next {
+        position: absolute;
+        width: 50px;
+    }
+
+    .@{list-prefix}-layer-last {
+        left: -55px;
+    }
+
+    .@{list-prefix}-layer-next {
+        right: -55px;
+    }
+
+    .@{list-prefix}-layer-last-bg,
+    .@{list-prefix}-layer-next-bg {
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+
+        &:hover,
+        &.bg-hover {
+            background: #ccc;
+            opacity: 0.2;
+            filter: alpha(opacity=20);
+        }
+    }
+
+    .@{list-prefix}-layer-last-arrow,
+    .@{list-prefix}-layer-next-arrow {
+        display: inline-block;
+        width: 28px;
+        height: 45px;
+        position: absolute;
+        left: 10px;
+        z-index: 200;
+        background: url(img/scan.png) no-repeat;
+        _background:url(img/scan-ie6.png) no-repeat;
+    }
+
+    .@{list-prefix}-layer-last-arrow {
+        background-position: 0 0;
+
+        &:hover,
+        &.@{list-prefix}-layer-last-arrow-hover {
+            background-position: -56px 0;
+        }
+    }
+
+    .@{list-prefix}-layer-next-arrow {
+        background-position: -28px 0;
+
+        &:hover,
+        &.@{list-prefix}-layer-next-arrow-hover {
+            background-position: -84px 0;
+        }
+    }
+}
+
+.@{list-prefix}-layer-mask {
+    position: fixed;
+    _position: absolute;
+    _width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #333;
+    opacity: .7;
+    filter: alpha(opacity=70);
+    z-index: 100;
+}
